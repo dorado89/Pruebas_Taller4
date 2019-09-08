@@ -26,7 +26,7 @@ function unleashGremlins(ttl, callback) {
     var horde = window.gremlins.createHorde().gremlin(notDisabledFormGremblin).gremlin(clicksOnButtonsLinksGremblin);
     horde.seed(1234);
 horde.strategy(gremlins.strategies.distribution()
-  .distribution([0.3, 0.7]) // the first three gremlins have more chances to be executed than the last
+  .distribution([0.3, 0.7])
 );
     horde.after(callback);
     window.onbeforeunload = stop;

@@ -3,7 +3,7 @@ describe('Los estudiantes under monkeys', function () {
         cy.visit('https://losestudiantes.co');
         cy.contains('Cerrar').click();
         cy.wait(1000);
-//        randomClick(10);
+        randomClick(10);
         randomEvent(10);
     });
 });
@@ -39,10 +39,15 @@ function randomEvent(numberEvents) {
         var randomNumber = getRandomInt(1, 4);
         if (randomNumber === 1)
         {
-            randomClick(1);
-            monkeysLeft = monkeysLeft - 1;
-            cy.wait(1000);
-            randomEvent(monkeysLeft);
+            cy.get('div').then($links => {
+                var randomLink = $links.get(getRandomInt(0, $links.length));
+                if (!Cypress.dom.isHidden(randomLink)) {
+                    cy.wrap(randomLink).click(randomLink.clientWidth, randomLink.clientHeight, {force: true});
+                }
+                monkeysLeft = monkeysLeft - 1;
+                cy.wait(1000);
+                randomEvent(monkeysLeft);
+            });
         } else if (randomNumber === 2) {
             cy.get('input[type!="checkbox"]').then($links => {
                 var randomLink = $links.get(getRandomInt(0, $links.length));
